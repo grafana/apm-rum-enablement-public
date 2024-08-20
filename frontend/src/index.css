@@ -1,0 +1,31 @@
+body {
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  width: 100vw;
+  height: 100vh;
+
+  margin: 0;
+
+  background-color: #edede9; /* Just for visual reference */
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  all: unset;
+  display: block;
+  background-color: #b08968;
+  color: currentColor;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+}

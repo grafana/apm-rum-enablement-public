@@ -1,0 +1,48 @@
+/* Palette: https://coolors.co/palette/ede0d4-e6ccb2-ddb892-b08968-7f5539-9c6644 */
+
+.app {
+  margin: 1.5rem 2rem;
+
+  .useFlexCenterY {
+    display: flex;
+    justify-content: center;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.8125rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(6, 0, 32);
+    padding: 4rem;
+  }
+
+  .list {
+    width: 100%;
+  }
+
+  .list ul {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .list ul li {
+    list-style: none;
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 14px 25px;
+    background-color: transparent;
+    border: 2px solid rgb(12, 0, 66);
+  }
+
+  a:hover {
+    background-color: rgb(12, 0, 66);
+    color: rgb(255, 255, 255);
+  }
+}

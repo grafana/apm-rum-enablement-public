@@ -1,0 +1,26 @@
+.placeOrderPage {
+  .products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: start;
+  }
+
+  .product {
+    width: 350px;
+    height: 150px;
+
+    background: #e6ccb2;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .product:hover {
+    outline: 2px solid #7f5539;
+  }
+
+  .placeOrder {
+    margin: 3rem auto 0 auto;
+    padding: 2rem 3rem;
+  }
+}
