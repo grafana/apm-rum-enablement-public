@@ -25,6 +25,8 @@ Introducing auto-instrumentation into NodeJS apps is _easy_!
 Often users are not looking forward to change the application, but just add o11y. With docker,
 this can be done in 2 lines added to the Dockerfile.
 
+* [Node docs on OTel](https://grafana.com/docs/grafana-cloud/monitor-applications/application-observability/instrument/node/)
+
 * [NodeJS auto-instrumentation docs](https://www.npmjs.com/package/@opentelemetry/auto-instrumentations-node#user-content-usage-auto-instrumentation)
 
 * [Faro React Documentation](https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/instrument/faro-react/v6-no-data-router/)
