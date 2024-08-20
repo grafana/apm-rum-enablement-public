@@ -1,0 +1,49 @@
+services:
+  frontproxy:
+    build:
+      context: frontproxy
+    ports:
+      - '8000:8000'
+    depends_on:
+      - alloy
+      - frontend
+    volumes:
+      - ./frontproxy/nginx.conf:/etc/nginx/nginx.conf
+
+  frontend:
+    build: frontend
+    environment:
+      - PORT=8001
+    ports:
+      - "8001:8001"
+    depends_on:
+      - products
+
+  products:
+    build:
+     context: products
+    ports:
+      - '8002:8002'
+    volumes:
+      - ./products/app.py:/app/app.py
+    depends_on:
+      - redis
+
+  checkout:
+    build:
+      context: checkout
+    ports:
+      - '8003:8003'
+
+  redis:
+     image: redis:alpine
+     ports:
+       - '6379:6379'
+
+  alloy:
+    image: grafana/alloy
+    command: ["run", "--server.http.listen-addr=0.0.0.0:12345", "--storage.path=/var/lib/alloy/data", "/etc/alloy/config.alloy"]
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy
+    ports:
+      - '12345:12345'
