@@ -72,19 +72,8 @@ async function processCheckout(products, paymentInfo) {
 app.post('/api/checkout', async function(req, res) {
     const { products, paymentInfo } = req.body;
 
-    try {
-        const result = await processCheckout(products, paymentInfo);
-        res.status(200).json(result);
-    } catch (error) {
-        if (error.message === 'Cart is empty.' || error.message === 'Invalid payment information.') {
-            res.status(400).json({ error: error.message });
-        } else if (error.message.startsWith('Payment processing failed')) {
-            res.status(402).json({ error: error.message });
-        } else {
-            console.error('Checkout failed:', error.message);
-            res.status(500).json({ error: error.message });
-        }
-    }
+    const result = await processCheckout(products, paymentInfo);
+    res.status(200).json(result);
 });
 
 app.get('/', function(req, res) {
