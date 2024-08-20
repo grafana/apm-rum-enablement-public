@@ -1,0 +1,16 @@
+{
+    "name": "checkout",
+    "version": "1.0.0",
+    "description": "Running Node.js and Express.js on Docker",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "bunyan": "^1.8.15",
+        "express": "^4.17.2",
+        "redis": "3.1.2"
+    },
+    "author": "Cedric Ziel <cedric.ziel@grafana.com>",
+    "license": "MIT"
+}
