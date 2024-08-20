@@ -47,3 +47,15 @@ services:
       - ./alloy/config.alloy:/etc/alloy/config.alloy
     ports:
       - '12345:12345'
+
+  load:
+    build:
+      context: load
+      dockerfile: Dockerfile
+    volumes:
+      - ./load/script.js:/etc/script.js
+    command: run /etc/script.js
+    restart: always
+    depends_on:
+      frontproxy:
+        condition: service_started
