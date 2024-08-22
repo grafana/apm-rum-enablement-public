@@ -31,23 +31,25 @@ export default async function () {
         await page.goto(`http://frontproxy:8000`);
         sleep(1);
 
-        const productsNavItem = page.locator("//a[starts-with(text(),'Products')]");
-        await Promise.all([page.waitForNavigation(), productsNavItem.click()]);
+        await page.goto(`http://frontproxy:8000/products`);
+        sleep(1);
 
         const productToFind = Math.floor(Math.random() * 9) + 1;
-
         const productButton = page.locator(`.products button.product:nth-child(${productToFind})`);
         productButton.click();
 
+        sleep(1);
+
         const reviewOrderButton = page.locator("button.placeOrder");
         await Promise.all([page.waitForNavigation(), reviewOrderButton.click()]);
+
+        await page.goto(`http://frontproxy:8000/order`);
+        sleep(1);
 
         const placeOrderButton = page.locator("button.placeOrder");
         await Promise.all([page.waitForNavigation(), placeOrderButton.click()]);
 
         sleep(1);
-
-        page.waitForTimeout(5000);
     } finally {
         page.close();
     }
