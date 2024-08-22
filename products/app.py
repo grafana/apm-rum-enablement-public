@@ -1,10 +1,24 @@
 import logging
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, abort, make_response
 from redis import Redis
+import random
+import time
 
 app = Flask(__name__)
 redis = Redis(host='redis', port=6379)
+
+class RandomFailureException(Exception):
+    pass
+
+@app.errorhandler(RandomFailureException)
+def handle_random_failure(error):
+    response = jsonify({"error": str(error)})
+    response.status_code = 500  # You can set any status code you prefer
+
+    logging.getLogger().error("Error loading products: " + str(error))
+
+    return response
 
 @app.route('/health')
 def health():
@@ -16,6 +30,15 @@ def hello():
     counter = str(redis.get('hits'),'utf-8')
 
     logging.getLogger().info("Loading products")
+
+    # 10% chance to fail the request
+    if random.random() < 0.1:
+        raise RandomFailureException("Error connecting to the database")
+
+    delay = random.uniform(60, 250) / 1000  # Convert milliseconds to seconds
+
+    # Apply the delay
+    time.sleep(delay)
 
     return jsonify([
   {
@@ -141,4 +164,4 @@ def hello():
 ])
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8002, debug=True)
+    app.run(host="0.0.0.0", port=8002, debug=False)
