@@ -2,14 +2,20 @@ const os = require('os');
 const express = require('express');
 const app = express();
 const redis = require('redis');
-const bunyan = require('bunyan');
-
-// Create a logger and use in your app
-const logger = bunyan.createLogger({name: 'checkout', level: 'info'});
+const winston = require('winston');
+const { OpenTelemetryTransportV3 } = require('@opentelemetry/winston-transport');
 
 const redisClient = redis.createClient({
   host: 'redis',
   port: 6379
+});
+
+// Create a logger and use in your app
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console(),
+        new OpenTelemetryTransportV3(),
+    ]
 });
 
 app.use(express.json());
@@ -69,11 +75,15 @@ async function processCheckout(products, paymentInfo) {
     return { message: 'Checkout completed successfully!', transactionId: paymentResult.transactionId };
 }
 
-app.post('/api/checkout', async function(req, res) {
+app.post('/api/checkout', async function(req, res, next) {
     const { products, paymentInfo } = req.body;
 
-    const result = await processCheckout(products, paymentInfo);
-    res.status(200).json(result);
+    try {
+        const result = await processCheckout(products, paymentInfo);
+        res.status(200).json(result);
+    } catch(err) {
+        next(err);
+    }
 });
 
 app.get('/', function(req, res) {
@@ -87,6 +97,12 @@ app.get('/', function(req, res) {
         redisClient.set('numVisits', numVisits);
     });
 });
+
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    
+    res.status(500).send('Something broke!')
+})
 
 app.listen(8003, function() {
     console.log('Web application is listening on port 5000');
