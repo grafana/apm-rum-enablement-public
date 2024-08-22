@@ -52,7 +52,7 @@ function useOrderProducts(initialSelectedProducts) {
         setLoading(false);
 
         if (!response.ok) {
-          // TODO: handle error
+          throw new Error("Failed to process checkout");
         }
         return response.json();
       })
@@ -62,6 +62,7 @@ function useOrderProducts(initialSelectedProducts) {
       })
       .catch((error) => {
         setSuccess("error");
+        throw error;
       });
   };
 

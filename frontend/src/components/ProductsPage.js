@@ -56,9 +56,12 @@ function useGetProducts() {
   React.useEffect(() => {
     // Replace the URL with your backend products API url
     fetch("/api/products")
-      .then((response) => {
-        return response.json();
-      })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to load products");
+      }
+      return response.json();
+    })
       .then((data) => {
         setProducts(data);
         setLoading(false);
