@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:20.16.0-alpine
+FROM node:24.15.0-alpine@sha256:d1b3b4da11eefd5941e7f0b9cf17783fc99d9c6fc34884a665f40a06dbdfc94f
 
 EXPOSE 8001
 
