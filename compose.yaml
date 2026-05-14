@@ -36,12 +36,12 @@ services:
       - '8003:8003'
 
   redis:
-     image: redis:alpine
+     image: redis:alpine@sha256:d146f83b1e0f02fc27c26a50cee39338c736674c5959db84363e6ae3cd9e02d2
      ports:
        - '6379:6379'
 
   alloy:
-    image: grafana/alloy
+    image: grafana/alloy@sha256:51aeb9d829239345070619dad3edd6873186f913c84f45b365b74574fcb38ec0
     command: ["run", "--server.http.listen-addr=0.0.0.0:12345", "--storage.path=/var/lib/alloy/data", "/etc/alloy/config.alloy"]
     volumes:
       - ./alloy/config.alloy:/etc/alloy/config.alloy
