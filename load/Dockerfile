@@ -1,3 +1,3 @@
-FROM grafana/k6:0.53.0-with-browser
+FROM grafana/k6:2.3.0-with-browser@sha256:fd3bc5d244f87e7d05152ede97b99813a381a83b639a4e43e1939b56460544ee
 
 COPY script.js /etc/script.js
